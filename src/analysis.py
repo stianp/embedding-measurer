@@ -9,6 +9,7 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 import plotly.express as px
+import streamlit as st
 
 # Paths
 data_dir = os.path.join(os.path.dirname(__file__), '../data')
@@ -61,7 +62,8 @@ def plot_similarity_heatmap(similarity_matrix, section_labels):
     plt.figure(figsize=(10, 8))
     sns.heatmap(similarity_matrix, xticklabels=section_labels, yticklabels=section_labels, annot=True, cmap="viridis")
     plt.title("Cosine Similarity Heatmap")
-    plt.show()
+    st.pyplot(plt.gcf())
+    plt.close()
 
 def hierarchical_clustering(embeddings, section_labels):
     """
@@ -76,7 +78,8 @@ def hierarchical_clustering(embeddings, section_labels):
     plt.figure(figsize=(10, 7))
     dendrogram(linked, labels=section_labels, distance_sort='descending')
     plt.title("Hierarchical Clustering Dendrogram")
-    plt.show()
+    st.pyplot(plt.gcf())
+    plt.close()
 
 def kmeans_clustering(embeddings, section_labels, num_clusters=3):
     """
@@ -102,7 +105,8 @@ def kmeans_clustering(embeddings, section_labels, num_clusters=3):
         plt.annotate(label, (principal_components[i, 0], principal_components[i, 1]))
     plt.legend()
     plt.title("K-means Clustering")
-    plt.show()
+    st.pyplot(plt.gcf())
+    plt.close()
 
 def pca_visualization(embeddings, section_labels):
     """
@@ -118,7 +122,7 @@ def pca_visualization(embeddings, section_labels):
     fig = px.scatter(x=principal_components[:, 0], y=principal_components[:, 1], text=section_labels)
     fig.update_traces(textposition='top center')
     fig.update_layout(title="PCA Dimensionality Reduction", xaxis_title="PCA Component 1", yaxis_title="PCA Component 2")
-    fig.show()
+    st.plotly_chart(fig)
 
 def tsne_visualization(embeddings, section_labels):
     """
@@ -134,7 +138,7 @@ def tsne_visualization(embeddings, section_labels):
     fig = px.scatter(x=tsne_components[:, 0], y=tsne_components[:, 1], text=section_labels)
     fig.update_traces(textposition='top center')
     fig.update_layout(title="t-SNE Dimensionality Reduction", xaxis_title="t-SNE Component 1", yaxis_title="t-SNE Component 2")
-    fig.show()
+    st.plotly_chart(fig)
 
 def main():
     # Load embeddings from the JSON file

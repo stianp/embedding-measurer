@@ -1,27 +1,13 @@
 import streamlit as st
 import json
 import os
-from embeddings import generate_embeddings
+from embeddings import generate_embeddings, load_texts
 from analysis import calculate_cosine_similarity, plot_similarity_heatmap, hierarchical_clustering, kmeans_clustering, pca_visualization, tsne_visualization
 
 # Paths
 data_dir = os.path.join(os.path.dirname(__file__), '../data')
 text_file_path = os.path.join(data_dir, 'ai-texts.json')
 embeddings_file_path = os.path.join(data_dir, 'embeddings.json')
-
-def load_texts(file_path):
-    """
-    Load texts and their IDs from the specified JSON file.
-    
-    Args:
-        file_path (str): Path to the JSON file containing texts.
-        
-    Returns:
-        list: A list of dictionaries with 'id' and 'text'.
-    """
-    with open(file_path, 'r') as file:
-        data = json.load(file)
-        return [{'id': entry['id'], 'text': entry['text']} for entry in data]
 
 def load_embeddings(file_path):
     """
