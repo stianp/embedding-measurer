@@ -1,6 +1,6 @@
+import numpy as np
 import json
 import os
-import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.spatial.distance import cosine
@@ -114,7 +114,7 @@ def pca_visualization(embeddings, section_labels):
     
     Args:
         embeddings (list): List of embeddings for the sections.
-        section_labels (list of str): Labels for each section.
+        section_labels (list): Labels for each section.
     """
     pca = PCA(n_components=2)
     principal_components = pca.fit_transform(embeddings)
@@ -130,9 +130,11 @@ def tsne_visualization(embeddings, section_labels):
     
     Args:
         embeddings (list): List of embeddings for the sections.
-        section_labels (list of str): Labels for each section.
+        section_labels (list): Labels for each section.
     """
-    tsne = TSNE(n_components=2, perplexity=30, n_iter=300)
+    embeddings = np.array(embeddings)
+    perplexity = min(30, len(embeddings) - 1)
+    tsne = TSNE(n_components=2, perplexity=perplexity, n_iter=300)
     tsne_components = tsne.fit_transform(embeddings)
     
     fig = px.scatter(x=tsne_components[:, 0], y=tsne_components[:, 1], text=section_labels)

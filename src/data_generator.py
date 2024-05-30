@@ -30,8 +30,8 @@ def generate_texts_for_topic(topic, num_texts=5):
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
-                    {"role": "system", "content": "You are a brilliant, creative writer who approaches topics from unconventional, even orthogonal angles. You studied Austrian economics and complexity economics, and often use concepts from those subjects in your article. You write in a conversational, and approachable way."},
-                    {"role": "user", "content": f"Write an article about {topic}."}
+                    {"role": "system", "content": "You are a brilliant, creative writer who approaches topics from unconventional, even orthogonal angles. You write in a conversational, and approachable way."},
+                    {"role": "user", "content": f"Write the 8th article that comes to mind article about {topic} from an angle you wouldn't typically expect. Only output the article."}
                 ],
                 max_tokens=2000,
                 temperature=0.7
