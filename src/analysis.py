@@ -81,7 +81,7 @@ def hierarchical_clustering(embeddings, section_labels):
     st.pyplot(plt.gcf())
     plt.close()
 
-def kmeans_clustering(embeddings, section_labels, num_clusters=3):
+def kmeans_clustering(embeddings, section_labels, num_clusters=4):
     """
     Perform K-means clustering and plot the clusters.
     
@@ -152,7 +152,7 @@ def main():
     similarity_matrix = calculate_cosine_similarity(embeddings)
     plot_similarity_heatmap(similarity_matrix, section_labels)
     hierarchical_clustering(embeddings, section_labels)
-    kmeans_clustering(embeddings, section_labels, num_clusters=3)
+    kmeans_clustering(embeddings, section_labels, num_clusters=4)
     pca_visualization(embeddings, section_labels)
     tsne_visualization(embeddings, section_labels)
 

@@ -26,13 +26,13 @@ Google has been using embeddings to understand and evaluate website content for 
 
 1. **Clone the repository**:
    ```sh
-   git clone https://github.com/yourusername/content-embedding-analysis.git
-   cd content-embedding-analysis/src
+   git clone https://github.com/stianp/embedding-measurer.git
+   cd embedding-measurer
    ```
 
 2. **Install required packages**:
    ```sh
-   pip install -r ../requirements.txt
+   pip install -r requirements.txt
    ```
 
 3. **Set up your OpenAI API key**:
@@ -42,6 +42,9 @@ Google has been using embeddings to understand and evaluate website content for 
    ```
 
 ### Usage
+
+Data has already been generated, so you can skip to step 3. 
+To generate more data, implement step 1 and 2.
 
 1. **Generate Data**:
    Run `data_generator.py` to generate sample texts and save them to `data/ai-texts.json`.

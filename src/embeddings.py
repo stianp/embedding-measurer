@@ -20,11 +20,11 @@ def load_texts(file_path):
         file_path (str): Path to the JSON file containing texts.
         
     Returns:
-        list: A list of dictionaries with 'id' and 'text'.
+        list: A list of dictionaries with 'id', 'topic', and 'text'.
     """
     with open(file_path, 'r') as file:
         data = json.load(file)
-        return [{'id': entry['id'], 'text': entry['text']} for entry in data]
+        return [{'id': entry['id'], 'topic': entry['topic'], 'text': entry['text']} for entry in data]
 
 def generate_embedding(text, model="text-embedding-3-small"):
     """
@@ -49,20 +49,20 @@ def generate_embedding(text, model="text-embedding-3-small"):
 
 def generate_embeddings(texts_with_ids, model="text-embedding-3-small"):
     """
-    Generate embeddings for a list of texts with their IDs.
+    Generate embeddings for a list of texts with their IDs and topics.
     
     Args:
-        texts_with_ids (list): A list of dictionaries with 'id' and 'text'.
+        texts_with_ids (list): A list of dictionaries with 'id', 'topic', and 'text'.
         model (str): The model to use for embedding generation.
         
     Returns:
-        list: A list of dictionaries with 'id' and 'embedding'.
+        list: A list of dictionaries with 'id', 'topic', and 'embedding'.
     """
     embeddings = []
     for i, item in enumerate(texts_with_ids):
         embedding = generate_embedding(item['text'], model=model)
         if embedding is not None:
-            embeddings.append({'id': item['id'], 'embedding': embedding})
+            embeddings.append({'id': item['id'], 'topic': item['topic'], 'embedding': embedding})
             print(f"Generated embedding for text {i + 1}/{len(texts_with_ids)}")
     return embeddings
 

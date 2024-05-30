@@ -17,7 +17,7 @@ def load_embeddings(file_path):
         file_path (str): Path to the JSON file containing embeddings.
         
     Returns:
-        list: A list of dictionaries with 'id' and 'embedding'.
+        list: A list of dictionaries with 'id', 'topic', and 'embedding'.
     """
     with open(file_path, 'r') as file:
         embeddings_data = json.load(file)
@@ -32,15 +32,14 @@ def main():
     # Generate embeddings if not already generated
     if not os.path.exists(embeddings_file_path):
         st.write("Generating embeddings for the texts...")
-        embeddings = generate_embeddings([entry['text'] for entry in texts_with_ids])
-        embeddings_data = [{'id': entry['id'], 'embedding': embedding} for entry, embedding in zip(texts_with_ids, embeddings)]
+        embeddings = generate_embeddings(texts_with_ids)
         with open(embeddings_file_path, 'w') as file:
-            json.dump(embeddings_data, file, indent=2)
+            json.dump(embeddings, file, indent=2)
         st.write("Embeddings generated and saved.")
     else:
         embeddings_data = load_embeddings(embeddings_file_path)
         embeddings = [entry['embedding'] for entry in embeddings_data]
-        section_labels = [entry['id'] for entry in embeddings_data]
+        section_labels = [entry['topic'] for entry in embeddings_data]
 
     # Sidebar for selecting analysis type
     analysis_type = st.sidebar.selectbox("Select Analysis Type", 
